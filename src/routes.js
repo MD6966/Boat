@@ -1,6 +1,5 @@
 import { useRoutes } from "react-router-dom/dist";
 import AuthLayout from "./layouts/Auth/AuthLayout";
-import Home from "./layouts/Home";
 import Landing from "./layouts/Landing/Landing";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
@@ -11,12 +10,30 @@ import AdminLayout from "./layouts/Admin/AdminLayout";
 import AddNewBoat from "./views/Admin/Dashboard/components/AddNewBoat";
 import Organizations from "./views/Admin/Dashboard/components/Organizations";
 import Islands from "./views/Admin/Dashboard/components/Islands";
+import Home from "./views/User/Home/Home";
+import PublicList from "./views/User/PublicList/PublicList";
+import PublicGroups from "./views/User/PublicGroups/PublicGroups";
 export default function Router() {
     let element = useRoutes([
         {
         path:'/',
         element : <Landing /> ,
+        children:[
+            {
+                path:'/home',
+                element:<Home />
+               },
+               {
+                path:'/public-list',
+                element: <PublicList />
+               },
+               {
+                path:'/public-groups',
+                element: <PublicGroups />
+               },
+        ]
        },
+      
        {
         path:'auth',
         element: <AuthLayout />, 

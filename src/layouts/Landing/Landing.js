@@ -20,7 +20,7 @@ const Landing = () => {
     >
       <Nav />
         <Box className={classes.root}>
-      Welcome To the Website 
+            <Outlet />
         </Box>
         {/* <Footer />  */}
     </Page>
