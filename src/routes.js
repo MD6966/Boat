@@ -10,7 +10,7 @@ import AdminDashboard from './views/Admin/Dashboard'
 import AdminLayout from "./layouts/Admin/AdminLayout";
 import AddNewBoat from "./views/Admin/Dashboard/components/AddNewBoat";
 import Organizations from "./views/Admin/Dashboard/components/Organizations";
-import Groups from "./views/Admin/Dashboard/components/Groups";
+import Islands from "./views/Admin/Dashboard/components/Islands";
 export default function Router() {
     let element = useRoutes([
         {
@@ -43,7 +43,7 @@ export default function Router() {
         children:[
             {path:'new-boat', element: <AddNewBoat />},
             {path:'organizations', element: <Organizations />},
-            {path:'groups', element: <Groups />}
+            {path:'islands', element: <Islands />}
         ]
        },
        {

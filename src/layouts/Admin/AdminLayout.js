@@ -57,13 +57,13 @@ const AdminLayout = () => {
                     <ListItem>
                         <ListItemButton 
                         component={Link}
-                        to="/admin/groups"
+                        to="/admin/islands"
                         >
 
                         <Avatar sx={{height:'30px', width:'30px'}}>
                             <Diversity2Icon sx={{color:'#000'}}/>
                         </Avatar>
-                        <ListItemText primary="Groups" sx={{ml:1.5}}/>
+                        <ListItemText primary="Islands" sx={{ml:1.5}}/>
                         </ListItemButton>
                     </ListItem>
                 </List>
