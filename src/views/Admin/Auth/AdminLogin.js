@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, AppBar, Toolbar, styled, 
+import {AppBar, Toolbar, styled, 
     Typography, Stack } from '@mui/material'
 import AdminLoginForm from './AdminLoginForm'
 import Page from '../../../components/page/page'
@@ -11,11 +11,11 @@ const StyledRoot = styled('div')(({theme})=> ({
     alignItems:'center'
     
   }))
-  const CenteredBox = styled(Box)(({theme})=> ({
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center'
-  }))
+  // const CenteredBox = styled(Box)(({theme})=> ({
+  //   display:'flex',
+  //   justifyContent:'center',
+  //   alignItems:'center'
+  // }))
   const StyledAppBar = styled(AppBar)(({theme})=> ({
     background:theme.palette.primary.main,
     position:'fixed',

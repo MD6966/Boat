@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Outlet } from 'react-router-dom/dist'
+// import { Outlet } from 'react-router-dom/dist'
 
 const NavBarLinks = () => {
   return (

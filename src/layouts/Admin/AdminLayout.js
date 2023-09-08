@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Toolbar, Typography, styled } from '@mui/material'
+import { AppBar, Avatar, Box, List, ListItem, ListItemButton, ListItemText, Stack, Toolbar, Typography, styled } from '@mui/material'
 import React from 'react'
 import { Outlet } from 'react-router'
 import AddIcon from '@mui/icons-material/Add';
