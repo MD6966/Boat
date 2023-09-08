@@ -13,6 +13,7 @@ import Islands from "./views/Admin/Dashboard/components/Islands";
 import Home from "./views/User/Home/Home";
 import PublicList from "./views/User/PublicList/PublicList";
 import PublicGroups from "./views/User/PublicGroups/PublicGroups";
+import SingleOrganization from "./views/Admin/Dashboard/components/SingleOrganization";
 export default function Router() {
     let element = useRoutes([
         {
@@ -20,7 +21,7 @@ export default function Router() {
         element : <Landing /> ,
         children:[
             {
-                path:'/home',
+                path:'/',
                 element:<Home />
                },
                {
@@ -31,6 +32,7 @@ export default function Router() {
                 path:'/public-groups',
                 element: <PublicGroups />
                },
+
         ]
        },
       
@@ -60,6 +62,7 @@ export default function Router() {
         children:[
             {path:'new-boat', element: <AddNewBoat />},
             {path:'organizations', element: <Organizations />},
+            {path:'single-organization', element: <SingleOrganization />},
             {path:'islands', element: <Islands />}
         ]
        },

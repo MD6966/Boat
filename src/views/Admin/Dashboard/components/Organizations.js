@@ -1,6 +1,11 @@
 import React from 'react'
 import Page from '../../../../components/page/page'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, TextField, Typography, styled } from '@mui/material'
+import { Link } from 'react-router-dom';
 const StyledRoot = styled(Box)(({theme})=> ({
     padding:theme.spacing(4),
 }))
@@ -16,6 +21,11 @@ const data = [
 ]
 const Organizations = () => {
     const [open, setOpen] = React.useState(false)
+    const [org, setOrg] = React.useState('');
+
+    const handleChange = (event) => {
+      setOrg(event.target.value);
+    };
   return (
     <Page
     title="Organizations"
@@ -38,7 +48,14 @@ const Organizations = () => {
                 lg={6}
                 key={ind}
                 >
-                    <Card sx={{background:'#e2e2e2', display:'flex', justifyContent:"space-between"}}>
+                    <Card sx={{background:'#e2e2e2', display:'flex', justifyContent:"space-between",
+                    cursor:'pointer',
+                    textDecoration:'none'    
+                }}
+                component={Link}
+                to="/admin/single-organization"
+                    
+                    >
                 <Box sx={{display:'flex',alignItems:'center',}}>
                 <Box
                 component="img"
@@ -46,7 +63,7 @@ const Organizations = () => {
                 sx={{height:'80px'}}
                 >
                 </Box>
-                <Typography sx={{ml:2}} variant='h6' fontWeight="bold">
+                <Typography sx={{ml:2}} variant='h6' fontWeight="bold" >
                             {val.name}
                         </Typography>
                 </Box>
@@ -71,7 +88,19 @@ const Organizations = () => {
                 <Divider />
                 <DialogContent>
                     <TextField fullWidth label="Organization Name" sx={{mb:2}}/>
-                    <TextField fullWidth label="Devices" placeholder='Enter Number of devices'/> 
+                    <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Visibility</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={org}
+          label="Visibility"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Public</MenuItem>
+          <MenuItem value={20}>Private</MenuItem>
+        </Select>
+      </FormControl>
                 </DialogContent>
                 <Divider />
                 <DialogActions>

@@ -45,7 +45,7 @@ const Header = () => {
     setOpen(false)
   };
   const ListData = [
-    {id:1, title:'Home', icon:<HomeIcon />  , to:'/home' },
+    {id:1, title:'Home', icon:<HomeIcon />  , to:'/' },
     {id:2, title:'Public List', icon:<DirectionsBoatIcon />, to:'/public-list' },
     {id:3, title:'Public Groups', icon:<SailingIcon />, to:'/public-groups'},
     {id:4, title:'Boat By Atolls', icon:<SailingIcon />,},
@@ -66,7 +66,7 @@ const Header = () => {
                 {
                   location.pathname =='/public-list' ? 'Public Vessels' :
                   location.pathname =='/public-groups' ? 'Public Groups' :
-                  location.pathname =='/home' ? 'Home' : null
+                  location.pathname =='/' ? 'Home' : null
                 }
               </Typography>
               <Box sx={{ml:'auto'}}>
