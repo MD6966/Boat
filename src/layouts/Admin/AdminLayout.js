@@ -1,10 +1,12 @@
-import { AppBar, Avatar, Box, List, ListItem, ListItemButton, ListItemText, Stack, Toolbar, Typography, styled } from '@mui/material'
+import { AppBar, Avatar, Box, Button, List, ListItem, ListItemButton, ListItemText, Stack, Toolbar, Typography, styled } from '@mui/material'
 import React from 'react'
-import { Outlet } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 import AddIcon from '@mui/icons-material/Add';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { adminLogOut } from '../../store/actions/adminActions';
 const StyledRoot = styled(Box)(({theme})=> ({
     padding:theme.spacing(5),
     marginTop:theme.spacing(5),
@@ -12,6 +14,13 @@ const StyledRoot = styled(Box)(({theme})=> ({
 }))
 
 const AdminLayout = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const handleSignOut = () => {
+        dispatch(adminLogOut())
+        navigate('/', {replace: true})
+
+    }
   return (
     <div>
       <AppBar position='fixed'>
@@ -19,6 +28,11 @@ const AdminLayout = () => {
             <Typography>
                 Admin Dashboard 
             </Typography>
+            <Box sx={{ml:'auto'}}>
+                <Button variant='contained' onClick={handleSignOut}>
+                    Sign out
+                </Button>
+            </Box>
         </Toolbar>
         </AppBar> 
         <StyledRoot>

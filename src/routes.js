@@ -14,7 +14,11 @@ import Home from "./views/User/Home/Home";
 import PublicList from "./views/User/PublicList/PublicList";
 import PublicGroups from "./views/User/PublicGroups/PublicGroups";
 import SingleOrganization from "./views/Admin/Dashboard/components/SingleOrganization";
+import { useSelector } from "react-redux";
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 export default function Router() {
+    const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
+    // console.log(isAuthenticated)
     let element = useRoutes([
         {
         path:'/',
@@ -57,15 +61,21 @@ export default function Router() {
         element: <AdminDashboard />
        },
        {
-        path:'admin',
-        element: <AdminLayout />,
+        element: <ProtectedRoutes isLogged={isAuthenticated} />,
         children:[
-            {path:'new-boat', element: <AddNewBoat />},
-            {path:'organizations', element: <Organizations />},
-            {path:'single-organization', element: <SingleOrganization />},
-            {path:'islands', element: <Islands />}
-        ]
+            {
+                path:'admin',
+                element: <AdminLayout />,
+                children:[
+                    {path:'new-boat', element: <AddNewBoat />},
+                    {path:'organizations', element: <Organizations />},
+                    {path:'single-organization', element: <SingleOrganization />},
+                    {path:'islands', element: <Islands />}
+                ]
+               },
+        ] 
        },
+      
        {
         path:'*',
         element: <ErrorPage /> 

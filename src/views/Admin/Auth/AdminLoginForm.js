@@ -2,8 +2,9 @@ import React from 'react'
 import { Button, styled, TextField, Stack   } from '@mui/material'
 import { RotatingLines } from 'react-loader-spinner'
 import { useNavigate } from 'react-router'
-// import { useSnackbar } from 'notistack';
-// import { useDispatch,} from 'react-redux'
+import { useSnackbar } from 'notistack';
+import { useDispatch,} from 'react-redux'
+import {adminLogin} from '../../../store/actions/adminActions'
 const StyledButton = styled(Button)(({theme})=> ({
     margin:'10px 0',
     background:theme.palette.primary.main,
@@ -21,22 +22,24 @@ const AdminLoginForm = () => {
         setFormValues({...formValues, [name]:value})
     }
     const navigate = useNavigate()
-    // const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const [formValues, setFormValues] = React.useState(initialValues)
     const [loading, setLoading] = React.useState(null)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const handleSubmit = (e) => {
-        // enqueueSnackbar('OK!', {
-        //     variant: 'success'
-        //   });
-        navigate('/admin/new-boat')
         setLoading(true)
         e.preventDefault()
         // console.log(formValues)
-        // dispatch(adminLogin(formValues)).then((res)=> {
-        //     console.log(res)
-        //     setLoading(false)
-        // })
+        dispatch(adminLogin(formValues)).then((res)=> {
+            console.log(res)
+            setLoading(false)
+            setLoading(false)
+        }).catch((err)=> {
+            setLoading(false)
+            enqueueSnackbar(err.response.data.message, {
+                variant:'error'
+            })
+        })
     }
     
   return (

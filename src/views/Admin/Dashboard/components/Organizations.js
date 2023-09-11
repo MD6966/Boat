@@ -5,7 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, TextField, Typography, styled } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addOrg, getOrg } from '../../../../store/actions/adminActions';
+import { useSnackbar } from 'notistack';
+import { RotatingLines } from 'react-loader-spinner';
 const StyledRoot = styled(Box)(({theme})=> ({
     padding:theme.spacing(4),
 }))
@@ -21,11 +25,56 @@ const data = [
 ]
 const Organizations = () => {
     const [open, setOpen] = React.useState(false)
-    const [org, setOrg] = React.useState('');
-
-    const handleChange = (event) => {
-      setOrg(event.target.value);
+    const [name, setName] = React.useState('');
+    const [orgData, setOrgData] = React.useState([])
+    const navigate = useNavigate()
+    const{enqueueSnackbar} = useSnackbar()
+    const dispatch = useDispatch()
+    const [visibility, setVisibility] = React.useState('public');
+    const [loading, setLoading] = React.useState(false)
+    const handleNameChange = (e) => {
+      setName(e.target.value);
     };
+    
+    const handleVisibilityChange = (e) => {
+      setVisibility(e.target.value);
+    };
+    
+    const handleSubmit = (e) => {
+        setLoading(true)
+        e.preventDefault()
+        const formValues = {
+            name: name,
+            visibility: visibility,
+          };
+          dispatch(addOrg(formValues)).then((result) => {
+            enqueueSnackbar(result.data.message, {
+                variant:'success'
+            })
+            setLoading(false)
+            setOpen(false)
+            getOrganization()
+          }).catch((err) => {
+            setLoading(false)
+            console.log(err)
+          });
+        setName('')
+        
+        console.log(formValues)
+    }
+    const getOrganization = () => {
+        dispatch(getOrg()).then((res)=> {
+            // console.log(res.data.data)
+            setOrgData(res.data.data)
+        })
+    }
+    React.useEffect(()=> {
+        getOrganization()
+    }, [])
+    const posData = (val) => {
+        console.log(val)
+        navigate('/admin/single-organization')
+    }
   return (
     <Page
     title="Organizations"
@@ -39,7 +88,7 @@ const Organizations = () => {
             <Divider sx={{mb:2}} />
             <Grid container spacing={3}>
                 {
-                    data.map((val, ind)=> {
+                    orgData.map((val, ind)=> {
                         return(
                 <Grid
                 item
@@ -52,8 +101,8 @@ const Organizations = () => {
                     cursor:'pointer',
                     textDecoration:'none'    
                 }}
-                component={Link}
-                to="/admin/single-organization"
+                onClick ={()=>posData(val)}
+                
                     
                     >
                 <Box sx={{display:'flex',alignItems:'center',}}>
@@ -82,35 +131,49 @@ const Organizations = () => {
                 }
             </Grid>
             <Dialog open={open} fullWidth onClose={() => setOpen(false)}>
+                <form onSubmit={handleSubmit}>
                 <DialogTitle>
                     Add New Organization
                 </DialogTitle>
                 <Divider />
                 <DialogContent>
-                    <TextField fullWidth label="Organization Name" sx={{mb:2}}/>
+                    <TextField fullWidth label="Organization Name" sx={{mb:2}}
+                    name='name' value={name}
+                    required
+                    onChange={handleNameChange}
+                    />
                     <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Visibility</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={org}
+          value={visibility}
           label="Visibility"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Public</MenuItem>
-          <MenuItem value={20}>Private</MenuItem>
+          onChange={handleVisibilityChange}
+          >
+          <MenuItem value="public">Public</MenuItem>
+          <MenuItem value="private">Private</MenuItem>
         </Select>
       </FormControl>
                 </DialogContent>
                 <Divider />
                 <DialogActions>
-                    <Button variant='outlined'>
+                    <Button variant='outlined' onClick={()=> setOpen(false)}>
                         Cancel
                     </Button>
-                    <Button variant='contained'>
-                        Add
-                    </Button>
+                    {
+          loading ? <Button type='submit' variant='disabled'>    <RotatingLines
+          strokeColor="black"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="30"
+          visible={loading}/> </Button> :
+          <Button type='submit' variant='contained'
+          > Add </Button>
+        }
+          
                 </DialogActions>
+            </form>
             </Dialog>
         </StyledRoot>
     </Page>

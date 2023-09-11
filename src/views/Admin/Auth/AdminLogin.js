@@ -3,6 +3,8 @@ import {AppBar, Toolbar, styled,
     Typography, Stack } from '@mui/material'
 import AdminLoginForm from './AdminLoginForm'
 import Page from '../../../components/page/page'
+import { useNavigate } from 'react-router'
+import { useSelector } from 'react-redux'
 const StyledRoot = styled('div')(({theme})=> ({
     // backgroundImage: Gradients.Custom,
     height:'100vh',
@@ -26,6 +28,13 @@ const StyledRoot = styled('div')(({theme})=> ({
     justifyContent:'space-between'
    }))
 const AdminLogin = () => {
+  const navigate = useNavigate()
+  const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
+  React.useLayoutEffect(() => {
+    if (isAuthenticated) {
+      navigate('/admin/new-boat', {replace:true});
+    }
+  }, [isAuthenticated]);
   return (
     <Page>
     <StyledAppBar>
