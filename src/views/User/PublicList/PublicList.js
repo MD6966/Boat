@@ -3,6 +3,8 @@ import React from 'react'
 import Page from '../../../components/page/page'
 import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
+import { useDispatch } from 'react-redux';
+import { getPublicBoats } from '../../../store/actions/userActions';
 const PublicList = () => {
     const StyledRoot = styled(Box)(({theme})=> ({
         minHeight:'100vh',
@@ -25,6 +27,20 @@ const PublicList = () => {
         { id: 15, name: 'Coastal Cruiser', location: 'M. Mulaku', type: 'Cruise Ship', phone: '9999999' },
       
     ]
+    const [boatData, setBoatData] = React.useState([])
+    const dispatch = useDispatch()
+    const getBoatData = () => {
+    dispatch(getPublicBoats()).then((result) => {
+        // console.log(result.data)
+        setBoatData(result.data)
+    }).catch((err) => {
+        console.log(err)
+    });
+    }
+
+    React.useEffect(()=> {
+        getBoatData()
+    }, [])
   return (
     <Page
     title="Public List"
@@ -35,7 +51,7 @@ const PublicList = () => {
             spacing={2}
             >
                 {
-                    data.map((val, ind)=> {
+                    boatData.map((val, ind)=> {
                         return(
                             <Grid
                             item
@@ -73,7 +89,7 @@ const PublicList = () => {
                                 <Box sx={{border:'1px solid rgba(0,0,0,0.5)', p:0.5, ml:1}}>
                                         <CallIcon sx={{fontSize:'1.05rem', mb:-0.5, mr:0.5}} />
                             <Typography sx={{display:'inline'}} >
-                                         {val.phone}
+                                         {val.contact}
                                     </Typography>
                                 </Box>
                                </Box>

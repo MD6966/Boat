@@ -22,6 +22,7 @@ const StyledInput = styled('input')(({theme})=> ({
 const useStyles = makeStyles((theme)=> ({
   selected : {
     background:'#1178bd',
+    // marginLeft:'auto',
     '& .MuiListItemIcon-root, & .MuiTypography-root': {
       color: '#fff',
     },
@@ -34,10 +35,6 @@ const Header = () => {
   const isPublicGroupsRoute = location.pathname === '/public-list';
   const [open, setOpen] = React.useState(false)
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const [isSearchVisible, setSearchVisible] = useState(false);
-  const toggleSearch = () => {
-    setSearchVisible(!isSearchVisible);
-  };
 
   
   const handleListItemClick = (event, index, val) => {
@@ -70,26 +67,11 @@ const Header = () => {
                 }
               </Typography>
               <Box sx={{ml:'auto'}}>
-              {isSearchVisible && (
+          
             <StyledInput
-              placeholder="Search"
-              // onKeyDown={(e) => {
-              //   if (e.key === 'Enter') {
-              //     handleSearch();
-              //   }
-              // }}
-            />
-          )}
+              placeholder="Search"/>
               </Box>
-            <Box style={{marginLeft:'auto'}}>
-            {isPublicGroupsRoute && (
-              <IconButton sx={{ color: '#fff' }} onClick={toggleSearch}>
-                <SearchIcon />
-                <Typography>Search</Typography>
-              </IconButton>
-            )}
-            {/* <NavBarLinks  />  */}
-            </Box>
+        
         </Toolbar>
         </AppBar> 
         <Drawer open={open} variant='temporary' onClose={() => setOpen(!open)}

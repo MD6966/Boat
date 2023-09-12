@@ -64,7 +64,7 @@ const Organizations = () => {
     }
     const getOrganization = () => {
         dispatch(getOrg()).then((res)=> {
-            // console.log(res.data.data)
+            console.log(res.data.data)
             setOrgData(res.data.data)
         })
     }
@@ -72,8 +72,7 @@ const Organizations = () => {
         getOrganization()
     }, [])
     const posData = (val) => {
-        console.log(val)
-        navigate('/admin/single-organization')
+        navigate(`/admin/single-organization/${val.id}`)
     }
   return (
     <Page
@@ -120,7 +119,7 @@ const Organizations = () => {
                 <Box sx={{display:'flex',alignItems:'center', mr:1}}>
                     <Box sx={{border:'1px solid rgba(0,0,0,0.5)', p:0.5}}>
                 <Typography >
-                             {val.devices} Devices
+                             {val.organization_boats_count} Devices
                         </Typography>
                     </Box>
                    </Box>

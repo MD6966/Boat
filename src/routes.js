@@ -69,7 +69,7 @@ export default function Router() {
                 children:[
                     {path:'new-boat', element: <AddNewBoat />},
                     {path:'organizations', element: <Organizations />},
-                    {path:'single-organization', element: <SingleOrganization />},
+                    {path:'single-organization/:id', element: <SingleOrganization />},
                     {path:'islands', element: <Islands />}
                 ]
                },

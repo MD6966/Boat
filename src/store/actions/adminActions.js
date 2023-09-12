@@ -96,3 +96,17 @@ export const getOrg = () => async(dispatch) => {
     throw err
   }
 }
+
+export const  addOrgBoat = (body) => async (dispatch) => {
+  try{
+    const res = await api.post('/api/organization_boats', body)
+    dispatch({
+      type:'ADD_ORG_BOAT',
+      payload:res.data
+    })
+      return res
+  }
+  catch(err) {
+    throw err
+  }
+}
