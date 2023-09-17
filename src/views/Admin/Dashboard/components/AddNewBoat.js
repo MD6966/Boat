@@ -5,15 +5,19 @@ import { useDispatch } from 'react-redux'
 import { addBoat } from '../../../../store/actions/adminActions'
 import { useSnackbar } from 'notistack'
 import { RotatingLines } from 'react-loader-spinner'
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 const StyledRoot = styled(Box)(({theme})=> ({
-    padding:theme.spacing(4),
+    // padding:theme.spacing(4),
 }))
 const AddNewBoat = () => {
     const initialValues = {
         name:'',
         location:'',
         type:'',
+        visibility:'',
         contact:''
     }
     const [formValues, setFormValues] = React.useState(initialValues)
@@ -22,6 +26,10 @@ const AddNewBoat = () => {
         const {name, value} = e.target
         setFormValues({...formValues, [name]:value})
     }
+
+  const handleChangeVis = (event) => {
+    setFormValues({...formValues, visibility:event.target.value});
+  };
     const dispatch = useDispatch()
     const {enqueueSnackbar} = useSnackbar()
     const handleSubmit = (e)=> {
@@ -57,9 +65,22 @@ const AddNewBoat = () => {
                 <TextField fullWidth label="Boat Location" sx={{mt:2}}
                 name='location' value={formValues.location} onChange={handleChange} required
                 />
-                <TextField fullWidth label="Boat Type" sx={{mt:2}} placeholder='eg: supply boat / speed boat'
+                <TextField fullWidth label="Boat Type" sx={{mt:2, mb:2}} placeholder='eg: supply boat / speed boat'
                 name='type' value={formValues.type} onChange={handleChange} required
                 />
+                        <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Visibility</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={formValues.visibility}
+                label="Visibility"
+                onChange={handleChangeVis}
+                >
+                <MenuItem value="public">Public</MenuItem>
+                <MenuItem value="private">Private</MenuItem>
+                </Select>
+            </FormControl>
                 <TextField fullWidth label="Boat contact" sx={{mt:2}}
                 name='contact' value={formValues.contact} onChange={handleChange} required
                 />

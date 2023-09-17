@@ -16,6 +16,7 @@ import PublicGroups from "./views/User/PublicGroups/PublicGroups";
 import SingleOrganization from "./views/Admin/Dashboard/components/SingleOrganization";
 import { useSelector } from "react-redux";
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
+import ManageBoats from "./views/Admin/Dashboard/components/ManageBoats";
 export default function Router() {
     const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
     // console.log(isAuthenticated)
@@ -67,6 +68,7 @@ export default function Router() {
                 path:'admin',
                 element: <AdminLayout />,
                 children:[
+                    {path:'manage-boats', element: <ManageBoats />},
                     {path:'new-boat', element: <AddNewBoat />},
                     {path:'organizations', element: <Organizations />},
                     {path:'single-organization/:id', element: <SingleOrganization />},

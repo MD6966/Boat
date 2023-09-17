@@ -32,7 +32,7 @@ const AdminLogin = () => {
   const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
   React.useLayoutEffect(() => {
     if (isAuthenticated) {
-      navigate('/admin/new-boat', {replace:true});
+      navigate('/admin/manage-boats', {replace:true});
     }
   }, [isAuthenticated]);
   return (

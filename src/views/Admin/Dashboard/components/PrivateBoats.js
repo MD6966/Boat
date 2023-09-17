@@ -1,36 +1,30 @@
-import { Box, styled, Card, Typography, Grid, } from '@mui/material'
 import React from 'react'
-import Page from '../../../components/page/page'
+import Page from '../../../../components/page/page'
+import { useDispatch } from 'react-redux'
+import { getPubliccAndPrivateBoats } from '../../../../store/actions/userActions'
+import { Typography,Box,Grid,Card } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
-import { useDispatch } from 'react-redux';
-import { getPublicBoats } from '../../../store/actions/userActions';
-const PublicList = () => {
-    const StyledRoot = styled(Box)(({theme})=> ({
-        minHeight:'100vh',
-        padding: theme.spacing(2)
-    }))
-
-    const [boatData, setBoatData] = React.useState([])
-    const dispatch = useDispatch()
-    const getBoatData = () => {
-    dispatch(getPublicBoats()).then((result) => {
-        // console.log(result.data)
-        setBoatData(result.data)
+const PrivateBoats = () => {
+  const dispatch = useDispatch()
+  const [boatData, setBoatData]=React.useState([])
+  const getPrivateBoats = () => {
+    dispatch(getPubliccAndPrivateBoats()).then((result) => {
+      setBoatData(result.data.private_boat)
     }).catch((err) => {
-        console.log(err)
+      
     });
-    }
-
-    React.useEffect(()=> {
-        getBoatData()
-    }, [])
+  }
+  React.useEffect(()=> {
+    getPrivateBoats()
+  },[])
   return (
     <Page
-    title="Public List"
-    >
-        <StyledRoot>
-            <Grid
+    title="Private Boats"
+    ><Typography variant='h4' sx={{mb:2}}>
+      All private boats
+    </Typography>
+    <Grid
             container
             spacing={2}
             >
@@ -85,9 +79,8 @@ const PublicList = () => {
               
 
             </Grid>
-        </StyledRoot>
     </Page>
   )
 }
 
-export default PublicList
+export default PrivateBoats

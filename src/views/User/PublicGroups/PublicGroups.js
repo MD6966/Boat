@@ -28,10 +28,11 @@ const PublicGroups = () => {
   
 ]
   const [orgData, setOrgData] = React.useState([])
-  console.log(orgData.length)
+  console.log(orgData, '++++++')
   const dispatch = useDispatch()
   const getOrgData = () => {
     dispatch(getPublicOrg()).then((result) => {
+      console.log(result, "Result")
       setOrgData(result.data)
     }).catch((err) => {
       

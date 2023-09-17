@@ -7,6 +7,7 @@ import Diversity2Icon from '@mui/icons-material/Diversity2';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { adminLogOut } from '../../store/actions/adminActions';
+import SailingIcon from '@mui/icons-material/Sailing';
 const StyledRoot = styled(Box)(({theme})=> ({
     padding:theme.spacing(5),
     marginTop:theme.spacing(5),
@@ -47,13 +48,13 @@ const AdminLayout = () => {
                     <ListItem>
                         <ListItemButton 
                         component={Link}
-                        to="/admin/new-boat"
+                        to="/admin/manage-boats"
                         >
 
                         <Avatar sx={{height:'30px', width:'30px'}}>
-                            <AddIcon sx={{color:'#000'}}/>
+                            <SailingIcon sx={{color:'#000'}}/>
                         </Avatar>
-                        <ListItemText primary="Add new boat" sx={{ml:1.5}}/>
+                        <ListItemText primary="Manage Boats" sx={{ml:1.5}}/>
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
