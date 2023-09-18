@@ -13,7 +13,7 @@ import Islands from "./views/Admin/Dashboard/components/Islands";
 import Home from "./views/User/Home/Home";
 import PublicList from "./views/User/PublicList/PublicList";
 import PublicGroups from "./views/User/PublicGroups/PublicGroups";
-import SingleOrganization from "./views/Admin/Dashboard/components/SingleOrganization";
+import SingleOrganization from "./views/Admin/Dashboard/components/SingleOrg/SingleOrganization";
 import { useSelector } from "react-redux";
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 import ManageBoats from "./views/Admin/Dashboard/components/ManageBoats";

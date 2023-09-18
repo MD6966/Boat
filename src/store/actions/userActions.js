@@ -63,7 +63,20 @@ export const  getPublicBoats = (body) => async (dispatch) => {
 
   export const  getPubliccAndPrivateOrg = () => async (dispatch) => {
     try{
-      const res = await api.get('/api/organization_boats/create',)
+      const res = await api.get('/api/organizations/create',)
+      // dispatch({
+      //   type:'GET_PUB_BOAT',
+      //   payload:res.data
+      // })
+        return res.data
+    }
+    catch(err) {
+      throw err
+    }
+  }
+  export const  getOrgPubAndPrvBoats = (id) => async (dispatch) => {
+    try{
+      const res = await api.get(`/api/organization_boats?organization_id=${id}`)
       // dispatch({
       //   type:'GET_PUB_BOAT',
       //   payload:res.data

@@ -3,21 +3,28 @@ import Page from '../../../../components/page'
 import { useDispatch } from 'react-redux'
 import { Typography,Card,Box,Grid } from '@mui/material'
 import { getPubliccAndPrivateOrg } from '../../../../store/actions/userActions'
+import { RotatingLines } from 'react-loader-spinner'
+import { useNavigate } from 'react-router'
 const PublicOrganizations = () => {
   const [orgData, setOrgData]=React.useState([])
   const dispatch = useDispatch()
+  const [loading, setLoading] = React.useState(false)
+  const navigate = useNavigate()
   const getPublicOrg = () => {
+    setLoading(true)
     dispatch(getPubliccAndPrivateOrg()).then((result) => {
-      console.log(result, '++++')
+      setOrgData(result.data.public_organization)
+      setLoading(false)
     }).catch((err) => {
-      
+      console.log(err)
     });
   }
   React.useEffect(()=>{
     getPublicOrg()
   },[])
-  const posData = () => {
-
+  const posData = (data) => {
+    navigate(`/admin/single-organization/${data.id}`, {state: data})
+    
   }
   return (
     <Page
@@ -25,6 +32,7 @@ const PublicOrganizations = () => {
     >
       <Typography variant='h4' sx={{mb:2}}>
         Public Organizations
+      </Typography>
         <Grid container spacing={3}>
                 {
                     orgData.map((val, ind)=> {
@@ -69,7 +77,17 @@ const PublicOrganizations = () => {
                     })
                 }
             </Grid>
-      </Typography>
+            {
+              loading &&
+              <Box sx={{display:'flex', justifyContent:'center', mt:5}}>
+              <RotatingLines
+              strokeColor="black"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="30"
+              visible={loading}/>
+              </Box>
+            }
     </Page>
   )
 }

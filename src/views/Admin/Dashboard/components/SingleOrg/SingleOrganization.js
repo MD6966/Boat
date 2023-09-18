@@ -1,19 +1,28 @@
 import React from 'react'
-import Page from '../../../../components/page/page'
+import Page from '../../../../../components/page/page'
 import { Box, Button, Dialog, DialogContent, DialogTitle, 
-    Divider, Typography, styled, TextField, DialogActions } from '@mui/material'
+    Divider, Typography, styled, TextField, DialogActions,
+Tab, Tabs
+} from '@mui/material'
     import { useDispatch } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import { useLocation, useParams } from 'react-router'
-import { addOrgBoat } from '../../../../store/actions/adminActions'
+import { addOrgBoat } from '../../../../../store/actions/adminActions'
 import { RotatingLines } from 'react-loader-spinner'
+import PublicIcon from '@mui/icons-material/Public';
+import VpnLockIcon from '@mui/icons-material/VpnLock';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import OrgPubBoats from './OrgPubBoats'
+import OrgPrvBoats from './OrgPrvBoats'
+import OrgNewBoat from './OrgNewBoat'
 const StyledRoot = styled(Box)(({theme})=> ({
     padding: theme.spacing(5)
 }))
 const SingleOrganization = () => {
     const [open, setOpen] = React.useState(false)
     const {id} = useParams()
-    console.log(id)
+    const {state} = useLocation()
+    // console.log(state)
     const initialValues = {
         name:'',
         location:'',
@@ -22,10 +31,10 @@ const SingleOrganization = () => {
     }
     const [formValues, setFormValues] = React.useState(initialValues)
     const [loading, setLoading] = React.useState(false)
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        setFormValues({...formValues, [name]:value})
-    }
+    // const handleChange = (e) => {
+    //     const {name, value} = e.target
+    //     setFormValues({...formValues, [name]:value})
+    // }
     const dispatch = useDispatch()
     const {enqueueSnackbar} = useSnackbar()
     const handleSubmit = (e)=> {
@@ -48,6 +57,10 @@ const SingleOrganization = () => {
             console.log(err)
         });
     }
+    const [value, setValue] = React.useState(0);
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
   return (
     <Page
     title="Organization"
@@ -55,13 +68,26 @@ const SingleOrganization = () => {
         <StyledRoot>
             <Box sx={{display:'flex', justifyContent:"space-around"}}>
                 <Typography variant='h4' textAlign="center" fontWeight="bold">
-                    Single Organization Data 
+                    {state.name}
                 </Typography>
                 <Button variant='contained' onClick={() => setOpen(true)}>
                      Add a new device
                 </Button>
             </Box>
-                <Dialog open={open} fullWidth onClose={()=> setOpen(false)}>
+            <Divider sx={{mt:2, mb:2}}/>
+            <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
+      <Tab icon={<PublicIcon />} value={0}label="PUBLIC BOATS" />
+      <Tab icon={<VpnLockIcon />} value={1} label="PRIVATE BOATS" />
+      <Tab icon={<AddCircleOutlineIcon />} value={2}label="ADD NEW BOAT" />
+    </Tabs>
+    <Box sx={{mt:2}}>
+
+      {value==0 && <OrgPubBoats state={state}/>}
+      {value==1 && <OrgPrvBoats state={state}/>}
+      {value==2 && <OrgNewBoat  state={state}/>}
+
+    </Box>
+                {/* <Dialog open={open} fullWidth onClose={()=> setOpen(false)}>
                     <form onSubmit={handleSubmit}>
 
                     <DialogTitle>
@@ -99,7 +125,7 @@ const SingleOrganization = () => {
         }
                     </DialogActions>
                      </form>
-                </Dialog>
+                </Dialog> */}
         </StyledRoot>
     </Page>
   )

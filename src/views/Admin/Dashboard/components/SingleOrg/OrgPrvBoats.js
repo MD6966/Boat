@@ -1,35 +1,30 @@
 import React from 'react'
-import Page from '../../../../components/page/page'
 import { useDispatch } from 'react-redux'
-import { getPubliccAndPrivateBoats } from '../../../../store/actions/userActions'
-import { Typography,Grid,Box,Card } from '@mui/material'
+import { getOrgPubAndPrvBoats } from '../../../../../store/actions/userActions'
+import { Grid,Typography,Box,Card } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
-import { RotatingLines } from 'react-loader-spinner'
-const PublicBoats = () => {
-  const dispatch = useDispatch()
-  const [loading, setLoading] = React.useState(false)
-  const [boatData, setBoatData] = React.useState([])
-  const getPublicBoats = () => {
-    setLoading(true)
-    dispatch(getPubliccAndPrivateBoats()).then((result) => {
-      setBoatData(result.data.public_boat)
-      setLoading(false)
-    }).catch((err) => {
-      console.log(err)
-    });
-  }
-  React.useEffect(()=>{
-    getPublicBoats()
-  },[])
+import { RotatingLines } from 'react-loader-spinner';
+const OrgPrvBoats = (props) => {
+    const {state} = props
+    const [loading, setLoading] = React.useState(false)
+    const [boatData, setBoatData]=React.useState([])
+    const dispatch = useDispatch()
+    const getOrgPrvBoats = () => {
+        setLoading(true)
+        dispatch(getOrgPubAndPrvBoats(state.id)).then((result) => {
+            setBoatData(result.data.private_boats)
+            setLoading(false)
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
+    React.useEffect(()=> {
+        getOrgPrvBoats()
+    },[])
   return (
-    <Page
-    title="Public Boats"
-    >
-      <Typography variant='h4' sx={{mb:2}}>
-      All public boats
-      </Typography>
-      <Grid
+    <div>
+        <Grid
             container
             spacing={2}
             >
@@ -95,8 +90,8 @@ const PublicBoats = () => {
               visible={loading}/>
               </Box>
             }
-    </Page>
+    </div>
   )
 }
 
-export default PublicBoats
+export default OrgPrvBoats

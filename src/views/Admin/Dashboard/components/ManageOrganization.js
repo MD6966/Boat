@@ -20,7 +20,7 @@ const ManageOrganization = () => {
        <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
       <Tab icon={<PublicIcon />} value={0}label="PUBLIC ORGANIZATIONS" />
       <Tab icon={<VpnLockIcon />} value={1} label="PRIVATE ORGANIZATIONS" />
-      <Tab icon={<AddCircleOutlineIcon />} value={2}label="ADD NEW ORGANIZATIO" />
+      <Tab icon={<AddCircleOutlineIcon />} value={2}label="ADD NEW ORGANIZATION" />
     </Tabs>
       <StyledRoot>
       {value==0 && <PublicOrganizations />}

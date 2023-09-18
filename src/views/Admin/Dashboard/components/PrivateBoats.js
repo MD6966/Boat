@@ -5,12 +5,16 @@ import { getPubliccAndPrivateBoats } from '../../../../store/actions/userActions
 import { Typography,Box,Grid,Card } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
+import { RotatingLines } from 'react-loader-spinner'
 const PrivateBoats = () => {
   const dispatch = useDispatch()
   const [boatData, setBoatData]=React.useState([])
+  const [loading, setLoading] = React.useState(false)
   const getPrivateBoats = () => {
+    setLoading(true)
     dispatch(getPubliccAndPrivateBoats()).then((result) => {
       setBoatData(result.data.private_boat)
+      setLoading(false)
     }).catch((err) => {
       console.log(err)
     });
@@ -79,6 +83,17 @@ const PrivateBoats = () => {
               
 
             </Grid>
+            {
+              loading &&
+              <Box sx={{display:'flex', justifyContent:'center', mt:5}}>
+              <RotatingLines
+              strokeColor="black"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="30"
+              visible={loading}/>
+              </Box>
+            }
     </Page>
   )
 }
