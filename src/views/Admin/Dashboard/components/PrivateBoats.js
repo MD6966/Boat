@@ -12,7 +12,7 @@ const PrivateBoats = () => {
     dispatch(getPubliccAndPrivateBoats()).then((result) => {
       setBoatData(result.data.private_boat)
     }).catch((err) => {
-      
+      console.log(err)
     });
   }
   React.useEffect(()=> {

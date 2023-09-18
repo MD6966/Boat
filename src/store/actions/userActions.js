@@ -60,3 +60,17 @@ export const  getPublicBoats = (body) => async (dispatch) => {
       throw err
     }
   }
+
+  export const  getPubliccAndPrivateOrg = () => async (dispatch) => {
+    try{
+      const res = await api.get('/api/organization_boats/create',)
+      // dispatch({
+      //   type:'GET_PUB_BOAT',
+      //   payload:res.data
+      // })
+        return res.data
+    }
+    catch(err) {
+      throw err
+    }
+  }

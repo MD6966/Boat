@@ -60,7 +60,7 @@ const AdminLayout = () => {
                     <ListItem>
                         <ListItemButton 
                         component={Link}
-                        to="/admin/organizations"
+                        to="/admin/manage-org"
                         >
 
                         <Avatar sx={{height:'30px', width:'30px'}}>
