@@ -10,6 +10,8 @@ import { Menu } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import clsx from 'clsx'
+import { useDispatch } from 'react-redux';
+import { adminLogOut } from '../../store/actions/adminActions';
 const StyledHeader = styled(Box)(({theme})=> ({
   background: theme.palette.primary.main,
   height:'30vh'
@@ -32,6 +34,7 @@ const drawerWidth = 500;
 const Header = () => {
   const classes = useStyles()
   const location = useLocation()
+  const dispatch = useDispatch()
   const isPublicGroupsRoute = location.pathname === '/public-list';
   const [open, setOpen] = React.useState(false)
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -42,12 +45,15 @@ const Header = () => {
     setOpen(false)
   };
   const ListData = [
-    {id:1, title:'Home', icon:<HomeIcon />  , to:'/' },
-    {id:2, title:'Public List', icon:<DirectionsBoatIcon />, to:'/public-list' },
-    {id:3, title:'Public Groups', icon:<SailingIcon />, to:'/public-groups'},
+    {id:1, title:'Home', icon:<HomeIcon />  , to:'/user/home' },
+    {id:2, title:'Public List', icon:<DirectionsBoatIcon />, to:'/user/public-list' },
+    {id:3, title:'Public Groups', icon:<SailingIcon />, to:'/user/public-groups'},
     {id:4, title:'Boat By Atolls', icon:<SailingIcon />,},
     {id:5, title:'Boat By Operators', icon:<SailingIcon />,},
   ]
+  const handleLogOut = () => {
+    dispatch(adminLogOut())
+  }
   return (
     <div>
       <AppBar position='static'>
@@ -61,15 +67,20 @@ const Header = () => {
           </IconButton>
               <Typography fontWeight="bold" variant='h5' sx={{ml:1}}>
                 {
-                  location.pathname =='/public-list' ? 'Public Vessels' :
-                  location.pathname =='/public-groups' ? 'Public Groups' :
-                  location.pathname =='/' ? 'Home' : null
+                  location.pathname =='/user/public-list' ? 'Public Vessels' :
+                  location.pathname =='/user/public-groups' ? 'Public Groups' :
+                  location.pathname =='/user/home' ? 'Home' : null
                 }
               </Typography>
               <Box sx={{ml:'auto'}}>
           
             <StyledInput
               placeholder="Search"/>
+              <Button variant='contained' sx={{ml:2}}
+              onClick={handleLogOut}
+              >
+                Sign Out 
+              </Button>
               </Box>
         
         </Toolbar>
@@ -130,12 +141,12 @@ const Header = () => {
                       <Stack>
                         
                       </Stack>
-                      <Button variant='contained'
+                      {/* <Button variant='contained'
                       component={Link}
                       to="/admin-login"
                       >
                           Admin Login
-                      </Button>
+                      </Button> */}
                     </Box>
         </Drawer>
     </div>

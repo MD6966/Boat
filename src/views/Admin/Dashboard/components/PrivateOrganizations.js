@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux'
 import { getPubliccAndPrivateOrg } from '../../../../store/actions/userActions'
 import { Typography,Grid,Box,Card } from '@mui/material'
 import { RotatingLines } from 'react-loader-spinner'
+import { useNavigate } from 'react-router'
 const PrivateOrganizations = () => {
   const [orgData, setOrgData] = React.useState([])
   const [loading, setLoading] = React.useState(false)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const getPrivateOrg = () => {
     setLoading(true)
@@ -14,13 +16,15 @@ const PrivateOrganizations = () => {
       setOrgData(result.data.private_organization)
       setLoading(false)
     }).catch((err) => {
+      setLoading(false)
       console.log(err)
     });
   }
   React.useEffect(() => {
     getPrivateOrg()
   },[])
-  const posData = () => {
+  const posData = (data) => {
+    navigate(`/admin/single-organization/${data.id}`, {state: data})
 
   }
   return (

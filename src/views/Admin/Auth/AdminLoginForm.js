@@ -29,9 +29,20 @@ const AdminLoginForm = () => {
     const handleSubmit = (e) => {
         setLoading(true)
         e.preventDefault()
-        // console.log(formValues)
         dispatch(adminLogin(formValues)).then((res)=> {
-            console.log(res)
+            console.log(res.res.data.data.user.role, '++++++++')
+            if(res.res.status == 200){
+                if(res.res.data.data.user.role == 'admin'){
+                    navigate('/admin/manage-boats', {replace:true})
+                }
+                else if (res.res.data.data.user.role == 'organization')
+                {
+                    navigate('/Organization', {replace:true})
+                }
+                else if (res.res.data.data.user.role == 'user') {
+                    navigate('/user/home', {replace:true})
+                }
+            }
             setLoading(false)
             setLoading(false)
         }).catch((err)=> {

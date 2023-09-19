@@ -16,6 +16,7 @@ const OrgPrvBoats = (props) => {
             setBoatData(result.data.private_boats)
             setLoading(false)
         }).catch((err) => {
+            setLoading(false)
             console.log(err)
         });
     }
@@ -89,6 +90,12 @@ const OrgPrvBoats = (props) => {
               width="30"
               visible={loading}/>
               </Box>
+            }
+            {
+                (boatData.length < 1 && !loading) &&
+            <Typography sx={{textAlign:'center', mt:5}}>
+                No data found
+            </Typography>
             }
     </div>
   )

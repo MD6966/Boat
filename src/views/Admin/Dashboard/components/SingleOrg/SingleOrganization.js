@@ -70,9 +70,6 @@ const SingleOrganization = () => {
                 <Typography variant='h4' textAlign="center" fontWeight="bold">
                     {state.name}
                 </Typography>
-                <Button variant='contained' onClick={() => setOpen(true)}>
-                     Add a new device
-                </Button>
             </Box>
             <Divider sx={{mt:2, mb:2}}/>
             <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">

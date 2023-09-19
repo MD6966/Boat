@@ -29,25 +29,27 @@ const StyledRoot = styled('div')(({theme})=> ({
    }))
 const AdminLogin = () => {
   const navigate = useNavigate()
-  const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
-  React.useLayoutEffect(() => {
-    if (isAuthenticated) {
-      navigate('/admin/manage-boats', {replace:true});
-    }
-  }, [isAuthenticated]);
+  // const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
+  // React.useLayoutEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/admin/manage-boats', {replace:true});
+  //   }
+  // }, [isAuthenticated]);
   return (
-    <Page>
+    <Page
+    title="Login"
+    >
     <StyledAppBar>
    <StyledToolbar>
     <Typography>
-    Admin Login
+     Login
      </Typography> 
    </StyledToolbar>
  </StyledAppBar>
  <StyledRoot>
      <Stack>
          
-         <Typography variant='h4' sx={{textAlign:'center'}}> Admin Login </Typography>
+         <Typography variant='h4' sx={{textAlign:'center'}}> Login </Typography>
          <Typography sx={{textAlign:'center', mb:'1rem'}}> Sign in on the internal platform </Typography>
                  <AdminLoginForm />
            

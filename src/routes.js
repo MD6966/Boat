@@ -18,29 +18,50 @@ import { useSelector } from "react-redux";
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 import ManageBoats from "./views/Admin/Dashboard/components/ManageBoats";
 import ManageOrganization from "./views/Admin/Dashboard/components/ManageOrganization";
+import MainPage from "./layouts/MainPage";
+import Organization from "./layouts/Organization";
 export default function Router() {
     const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
-    // console.log(isAuthenticated)
+    console.log(isAuthenticated, "ADMIN");
     let element = useRoutes([
         {
-        path:'/',
-        element : <Landing /> ,
+            path:'/',
+            element: <MainPage />
+        },
+        {element: <ProtectedRoutes isLogged={isAuthenticated}/>, 
         children:[
             {
-                path:'/',
-                element:<Home />
+                path:'user',
+                element : <Landing /> ,
+                children:[
+                    {
+                        path:'home',
+                        element:<Home />
+                       },
+                       {
+                        path:'public-list',
+                        element: <PublicList />
+                       },
+                       {
+                        path:'public-groups',
+                        element: <PublicGroups />
+                       },
+        
+                ]
                },
-               {
-                path:'/public-list',
-                element: <PublicList />
-               },
-               {
-                path:'/public-groups',
-                element: <PublicGroups />
-               },
-
         ]
-       },
+    },
+    {
+        element: <ProtectedRoutes isLogged={isAuthenticated}/>,
+        children:[
+            {path:'Organization', element:<Organization />,
+            children:[
+
+            ]
+            
+        }
+        ]
+    },
       
        {
         path:'auth',
@@ -55,7 +76,7 @@ export default function Router() {
         element: <Home />,
        },
        {
-        path:'/admin-login',
+        path:'/login',
         element: <AdminLogin /> 
        },
        {
