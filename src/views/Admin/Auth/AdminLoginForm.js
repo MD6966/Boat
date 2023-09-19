@@ -37,7 +37,7 @@ const AdminLoginForm = () => {
                 }
                 else if (res.res.data.data.user.role == 'organization')
                 {
-                    navigate('/Organization', {replace:true})
+                    navigate('/Organization/main', {replace:true})
                 }
                 else if (res.res.data.data.user.role == 'user') {
                     navigate('/user/home', {replace:true})

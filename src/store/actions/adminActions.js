@@ -32,13 +32,31 @@ export const adminLogin = ({ email, password }) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
     });
+    if(res.data.data.user.role == "admin"){
+      dispatch({
+        type: 'LOGIN_SUCCESS_ADMIN',
+        payload: res.data,
+      });
+      return { res };
+    }
+    else if(res.data.data.user.role == "user"){
+      dispatch({
+        type: 'LOGIN_SUCCESS_USER',
+        payload: res.data,
+      });
+      return { res };
+    }
+    else if(res.data.data.user.role == "organization"){
+      dispatch({
+        type: 'LOGIN_SUCCESS_ORG',
+        payload: res.data,
+      });
+      return { res };
+    }
 
-    dispatch({
-      type: 'LOGIN_SUCCESS',
-      payload: res.data,
-    });
+   
 
-    return { res };
+
   } catch (err) {
     // Handle the error
     throw err;

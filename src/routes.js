@@ -20,15 +20,21 @@ import ManageBoats from "./views/Admin/Dashboard/components/ManageBoats";
 import ManageOrganization from "./views/Admin/Dashboard/components/ManageOrganization";
 import MainPage from "./layouts/MainPage";
 import Organization from "./layouts/Organization";
+import OrganizationDefault from "./views/Organization/OrganizationDefault";
 export default function Router() {
     const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
-    console.log(isAuthenticated, "ADMIN");
+    // console.log(isAuthenticated, "ADMIN");
+    const isAuthenticatedUser = useSelector((state)=> state.admin.isAuthenticatedUser)
+    // console.log(isAuthenticatedUser, "USER");
+    const isAuthenticatedOrg = useSelector((state)=> state.admin.isAuthenticatedOrg)
+    // console.log(isAuthenticatedOrg, "ORG");
+
     let element = useRoutes([
         {
             path:'/',
             element: <MainPage />
         },
-        {element: <ProtectedRoutes isLogged={isAuthenticated}/>, 
+        {element: <ProtectedRoutes isLogged={isAuthenticatedUser}/>, 
         children:[
             {
                 path:'user',
@@ -52,11 +58,11 @@ export default function Router() {
         ]
     },
     {
-        element: <ProtectedRoutes isLogged={isAuthenticated}/>,
+        element: <ProtectedRoutes isLogged={isAuthenticatedOrg}/>,
         children:[
             {path:'Organization', element:<Organization />,
             children:[
-
+                {path:'main', element: <OrganizationDefault />}
             ]
             
         }
