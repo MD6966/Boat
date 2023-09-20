@@ -5,7 +5,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrgPubAndPrvBoats } from '../../../store/actions/userActions';
-const OrgPublicBoats = (props) => {
+const OrgPublicBoats = () => {
     const id = useSelector((state)=>state.admin.user.organization_id)
     const dispatch = useDispatch()
     const [data, setData] = React.useState([])

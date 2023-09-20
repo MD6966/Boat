@@ -21,6 +21,8 @@ import ManageOrganization from "./views/Admin/Dashboard/components/ManageOrganiz
 import MainPage from "./layouts/MainPage";
 import Organization from "./layouts/Organization";
 import OrganizationDefault from "./views/Organization/OrganizationDefault";
+import ShareBoats from "./views/Admin/Dashboard/components/SingleOrg/ShareBoats";
+import AssignedBoats from "./views/User/AssignedBoats";
 export default function Router() {
     const isAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
     // console.log(isAuthenticated, "ADMIN");
@@ -51,6 +53,10 @@ export default function Router() {
                        {
                         path:'public-groups',
                         element: <PublicGroups />
+                       },
+                       {
+                        path:'assigned-boats',
+                        element: <AssignedBoats />
                        },
         
                 ]
@@ -101,7 +107,9 @@ export default function Router() {
                     {path:'new-boat', element: <AddNewBoat />},
                     {path:'organizations', element: <Organizations />},
                     {path:'single-organization/:id', element: <SingleOrganization />},
-                    {path:'islands', element: <Islands />}
+                    {path:'islands', element: <Islands />},
+                    {path:'share-boat', element: <ShareBoats />},
+
                 ]
                },
         ] 

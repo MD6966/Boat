@@ -5,6 +5,8 @@ import { Grid,Typography,Box,Card } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
 import { RotatingLines } from 'react-loader-spinner';
+import ShareIcon from '@mui/icons-material/Share';
+import { Link, useNavigate } from 'react-router-dom';
 const OrgPrvBoats = (props) => {
     const {state} = props
     const [loading, setLoading] = React.useState(false)
@@ -23,6 +25,11 @@ const OrgPrvBoats = (props) => {
     React.useEffect(()=> {
         getOrgPrvBoats()
     },[])
+    const navigate = useNavigate()
+    const posData = (val) => {
+        navigate('/admin/share-boat', {state:val})
+        // console.log(val.id)
+    }
   return (
     <div>
         <Grid
@@ -35,8 +42,8 @@ const OrgPrvBoats = (props) => {
                             <Grid
                             item
                             xs={12}
-                            md={6}
-                            lg={6}>
+                            md={12}
+                            lg={12}>
                     <Card sx={{background:'#f7f7f7', display:'flex', justifyContent:"space-between"}}>
                             <Box sx={{display:'flex',alignItems:'center',}}>
                             <Box
@@ -71,6 +78,22 @@ const OrgPrvBoats = (props) => {
                                          {val.contact}
                                     </Typography>
                                 </Box>
+                            <Box>
+                            <Box 
+                            onClick={()=>posData(val)}
+                            sx={{border:'1px solid rgba(0,0,0,0.5)', p:0.5, ml:1, cursor:'pointer',
+                            color:'#000',
+                            textDecoration:'none',
+                            '&:hover': {
+                                background:'#c6c6c6'
+                            }
+                        }}>
+                                        <ShareIcon sx={{fontSize:'1.05rem', mb:-0.5, mr:0.5}} />
+                            <Typography sx={{display:'inline'}} >
+                                         Share
+                                    </Typography>
+                                </Box>
+                            </Box>
                                </Box>
                         </Card>
                             </Grid>

@@ -128,3 +128,30 @@ export const  addOrgBoat = (body) => async (dispatch) => {
     throw err
   }
 }
+
+export const  getUsers = () => async (dispatch) => {
+  try{
+    const res = await api.get('/api/all/users')
+    dispatch({
+      type:'GET_USERS',
+      payload:res.data
+    })
+      return res
+  }
+  catch(err) {
+    throw err
+  }
+}
+export const  shareBoat = (body) => async (dispatch) => {
+  try{
+    const res = await api.post('/api/assign/organization_boats', body)
+    dispatch({
+      type:'SHARE_BOAT',
+      payload:res.data
+    })
+      return res
+  }
+  catch(err) {
+    throw err
+  }
+}

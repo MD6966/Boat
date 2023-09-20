@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import clsx from 'clsx'
 import { useDispatch } from 'react-redux';
 import { adminLogOut } from '../../store/actions/adminActions';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 const StyledHeader = styled(Box)(({theme})=> ({
   background: theme.palette.primary.main,
   height:'30vh'
@@ -50,6 +51,8 @@ const Header = () => {
     {id:3, title:'Public Groups', icon:<SailingIcon />, to:'/user/public-groups'},
     {id:4, title:'Boat By Atolls', icon:<SailingIcon />,},
     {id:5, title:'Boat By Operators', icon:<SailingIcon />,},
+    {id:6, title:'Assigned Boats', icon:<AssignmentTurnedInIcon />, to:'/user/assigned-boats'},
+
   ]
   const handleLogOut = () => {
     dispatch(adminLogOut())
@@ -69,13 +72,14 @@ const Header = () => {
                 {
                   location.pathname =='/user/public-list' ? 'Public Vessels' :
                   location.pathname =='/user/public-groups' ? 'Public Groups' :
-                  location.pathname =='/user/home' ? 'Home' : null
+                  location.pathname =='/user/home' ? 'Home' :
+                  location.pathname == '/user/assigned-boats' ? 'Assigned Boats' : null
                 }
               </Typography>
               <Box sx={{ml:'auto'}}>
           
-            <StyledInput
-              placeholder="Search"/>
+            {/* <StyledInput
+              placeholder="Search"/> */}
               <Button variant='contained' sx={{ml:2}}
               onClick={handleLogOut}
               >
