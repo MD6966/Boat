@@ -1,45 +1,38 @@
-import { Box, styled, Card, Typography, Grid, } from '@mui/material'
 import React from 'react'
-import Page from '../../../components/page/page'
+import { Grid,Box,Typography, Card } from '@mui/material'
+import { RotatingLines } from 'react-loader-spinner'
 import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
-import { useDispatch } from 'react-redux';
-import { getPublicBoats } from '../../../store/actions/userActions';
-import { RotatingLines } from 'react-loader-spinner';
-const PublicList = () => {
-    const StyledRoot = styled(Box)(({theme})=> ({
-        minHeight:'100vh',
-        padding: theme.spacing(2)
-    }))
-
-    const [boatData, setBoatData] = React.useState([])
-    const [loading, setLoading] = React.useState(false)
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrgPubAndPrvBoats } from '../../../store/actions/userActions';
+const OrgPublicBoats = (props) => {
+    const id = useSelector((state)=>state.admin.user.organization_id)
     const dispatch = useDispatch()
-    const getBoatData = () => {
+    const [data, setData] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
+    const getPublicBoats = () =>  {
         setLoading(true)
-    dispatch(getPublicBoats()).then((result) => {
-        // console.log(result.data)
-        setBoatData(result.data)
-        setLoading(false)
-    }).catch((err) => {
-        console.log(err)
-    });
+        dispatch(getOrgPubAndPrvBoats(id)).then((result) => {
+            setData(result.data.public_boats)
+            setLoading(false)
+        }).catch((err) => {
+            setLoading(false)
+            console.log(err)
+        });
     }
-
     React.useEffect(()=> {
-        getBoatData()
-    }, [])
+        getPublicBoats()
+    },[])
+
   return (
-    <Page
-    title="Public List"
+    <div
     >
-        <StyledRoot>
-            <Grid
+        <Grid
             container
             spacing={2}
             >
-                {
-                    boatData.map((val, ind)=> {
+                {  
+                    data.map((val, ind)=> {
                         return(
                             <Grid
                             item
@@ -100,9 +93,14 @@ const PublicList = () => {
               visible={loading}/>
               </Box>
             }
-        </StyledRoot>
-    </Page>
+             {
+                (data.length < 1 && !loading) &&
+            <Typography sx={{textAlign:'center', mt:5}}>
+                No data found
+            </Typography>
+            }
+    </div>
   )
 }
 
-export default PublicList
+export default OrgPublicBoats

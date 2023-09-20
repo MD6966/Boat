@@ -28,16 +28,19 @@ const PublicGroups = () => {
   
 ]
   const [orgData, setOrgData] = React.useState([])
-  console.log(orgData, '++++++')
   const dispatch = useDispatch()
+  const [loading , setLoading] = React.useState(false)
   const getOrgData = () => {
+    setLoading(true)
     dispatch(getPublicOrg()).then((result) => {
-      console.log(result, "Result")
+      // console.log(result, "Result++++++++++++++++")
       setOrgData(result.data)
+      setLoading(false)
     }).catch((err) => {
       
     });
   }
+  // console.log(loading, "This is Loading")
   React.useEffect(()=> {
     getOrgData()
   },[])
@@ -46,40 +49,7 @@ const PublicGroups = () => {
     title="Public List"
     >
         <StyledRoot>
-          {
-            orgData.length == 0 ? (
-                   <Grid container spacing={2}>
-               <Grid item
-               xs={12}
-               md={6}
-               lg={6}
-               >
-           <Skeleton variant="rectangular" width={610} height={120}/>
-               </Grid>
-               <Grid item
-               xs={12}
-               md={6}
-               lg={6}
-               >
-           <Skeleton variant="rectangular" width={610} height={120}/>
-               </Grid>
-               <Grid item
-               xs={12}
-               md={6}
-               lg={6}
-               >
-           <Skeleton variant="rectangular" width={610} height={120}/>
-               </Grid>
-               <Grid item
-               xs={12}
-               md={6}
-               lg={6}
-               >
-           <Skeleton variant="rectangular" width={610} height={120}/>
-               </Grid>
-           </Grid>
-            ): (
-                <Grid
+        <Grid
             container
             spacing={2}
             >
@@ -130,15 +100,43 @@ const PublicGroups = () => {
                         )
                     })
                 }
-              
+            
 
             </Grid>
-            ) 
-           
-          
-          }
-            
-           
+              {
+                loading && 
+                <Grid container spacing={2}>
+               <Grid item
+               xs={12}
+               md={6}
+               lg={6}
+               >
+           <Skeleton variant="rectangular" width={610} height={120}/>
+               </Grid>
+               <Grid item
+               xs={12}
+               md={6}
+               lg={6}
+               >
+           <Skeleton variant="rectangular" width={610} height={120}/>
+               </Grid>
+               <Grid item
+               xs={12}
+               md={6}
+               lg={6}
+               >
+           <Skeleton variant="rectangular" width={610} height={120}/>
+               </Grid>
+               <Grid item
+               xs={12}
+               md={6}
+               lg={6}
+               >
+           <Skeleton variant="rectangular" width={610} height={120}/>
+               </Grid>
+           </Grid>
+              }
+             
             
         </StyledRoot>
     </Page>
