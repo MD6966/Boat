@@ -35,7 +35,7 @@ const OrgNewBoat = (props) => {
         e.preventDefault()
         const updatedValues = {
             ...formValues,
-            organization_id: state.id,
+            organization_id: state,
         }
         // console.log(formValues)
         dispatch(addOrgBoat(updatedValues)).then((result) => {

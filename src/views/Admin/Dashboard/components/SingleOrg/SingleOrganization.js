@@ -81,7 +81,7 @@ const SingleOrganization = () => {
 
       {value==0 && <OrgPubBoats state={state}/>}
       {value==1 && <OrgPrvBoats state={state}/>}
-      {value==2 && <OrgNewBoat  state={state}/>}
+      {value==2 && <OrgNewBoat  state={state.id}/>}
 
     </Box>
                 {/* <Dialog open={open} fullWidth onClose={()=> setOpen(false)}>

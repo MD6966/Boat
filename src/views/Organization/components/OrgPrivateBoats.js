@@ -5,6 +5,8 @@ import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrgPubAndPrvBoats } from '../../../store/actions/userActions';
+import ShareIcon from '@mui/icons-material/Share';
+import { useNavigate } from 'react-router';
 
 const OrgPrivateBoats = () => {
     const id = useSelector((state)=>state.admin.user.organization_id)
@@ -24,6 +26,11 @@ const OrgPrivateBoats = () => {
     React.useEffect(()=> {
         getPrivateBoats()
     },[])
+    const navigate = useNavigate()
+    const posData = (val) => {
+        navigate('/organization/share-boat', {state:val})
+        // console.log(val.id)
+    }
   return (
     <div>
        <Grid
@@ -72,7 +79,24 @@ const OrgPrivateBoats = () => {
                                          {val.contact}
                                     </Typography>
                                 </Box>
+                                <Box>
+                            <Box 
+                            onClick={()=>posData(val)}
+                            sx={{border:'1px solid rgba(0,0,0,0.5)', p:0.5, ml:1, cursor:'pointer',
+                            color:'#000',
+                            textDecoration:'none',
+                            '&:hover': {
+                                background:'#c6c6c6'
+                            }
+                        }}>
+                                        <ShareIcon sx={{fontSize:'1.05rem', mb:-0.5, mr:0.5}} />
+                            <Typography sx={{display:'inline'}} >
+                                         Share
+                                    </Typography>
+                                </Box>
+                            </Box>
                                </Box>
+                               
                         </Card>
                             </Grid>
                         )

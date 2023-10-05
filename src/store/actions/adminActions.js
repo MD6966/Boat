@@ -155,3 +155,16 @@ export const  shareBoat = (body) => async (dispatch) => {
     throw err
   }
 }
+export const  getAssignedBoats = () => async (dispatch) => {
+  try{
+    const res = await api.get('/api/share/boats',)
+    dispatch({
+      type:'ASSIGNED_BOATS',
+      payload:res.data
+    })
+      return res
+  }
+  catch(err) {
+    throw err
+  }
+}

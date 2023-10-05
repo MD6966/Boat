@@ -68,7 +68,9 @@ export default function Router() {
         children:[
             {path:'Organization', element:<Organization />,
             children:[
-                {path:'main', element: <OrganizationDefault />}
+                {path:'main', element: <OrganizationDefault />},
+                {path:'share-boat', element: <ShareBoats />},
+                
             ]
             
         }
